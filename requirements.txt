@@ -1,0 +1,7 @@
+numpy
+pandas
+tqdm
+torch
+sklearn
+transformers
+nltk
