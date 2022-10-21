@@ -22,7 +22,9 @@ Please download the sem-tab-facts dataset from the official website:
 - [Manually annotated training set](https://drive.google.com/file/d/1yObzEEZJ8qM7ZjrMcbtKZ-jofpL820ft/view)
 - [Dev set](https://drive.google.com/file/d/1l5iojO8q_CB-sDCjlUpa7wVi8XUrqlss/view)
 - [Test set](https://drive.google.com/file/d/1Trfq0Zd2tcAV4JIR9puopmy6NC1lMj5S/view)
+
 Then refer to this [repository](https://github.com/devanshg27/sem-tab-fact) for standardizing the table header, or you can directly download the [dataset] we have processed.
+
 Finally, put the processed dataset under the folder "PASTA/datasets", and name it "semtabfacts".
 
 ## Pre-training
