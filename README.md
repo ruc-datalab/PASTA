@@ -31,4 +31,19 @@ Finally, put the processed dataset under the folder "PASTA/datasets", and name i
 
 ## Fine-tuning
 
+### Run TabFact
+Fine-tune on the Tabfact dataset with the following command. 
+```sh
+python src/run_finetune.py src/scripts/train_tabfact.json
+```
+Note that you need to modify the paths in the `.json` file to your own paths.
+
+### Run SEM-TAB-FACTS
+Following [LKA](https://aclanthology.org/2022.coling-1.120.pdf), we also use the trained model on the TabFact to initialize the training of SEM-TAB-FACTS. Therefore, You need to train on the TabFact dataset to get the checkpoint, or you can directly download the checkpoint we provide and put it under `save_checkpoints`.
+Then, fine-tune on the SEM-TAB-FACTS dataset with the following command.
+```sh
+python src/run_finetune.py src/scripts/train_semtabfacts.json
+```
+Note that you need to modify the paths in the `.json` file to your own paths.
+
 ## Reference
