@@ -10,7 +10,7 @@ pip install -r requirements.txt
 ## Datasets Preparation
 
 ### TabFact
-Please download the TabFact dataset from [the official GitHub repository](https://github.com/wenhuchen/Table-Fact-Checking) and put it under the folder "PASTA/datasets".
+Please download the TabFact dataset from [the official GitHub repository](https://github.com/wenhuchen/Table-Fact-Checking) and put it under the folder `PASTA/datasets`.
 ```sh
 git clone git@github.com:wenhuchen/Table-Fact-Checking.git
 mv Table-Fact-Checking tabfact
@@ -25,7 +25,7 @@ Please download the sem-tab-facts dataset from the official website:
 
 Then refer to this [repository](https://github.com/devanshg27/sem-tab-fact) for standardizing the table header, or you can directly download the [dataset](https://drive.google.com/file/d/1iQ9y3UetDq0-Ib70us2Oo-pwx63U2rls/view) we have processed.
 
-Finally, put the processed dataset under the folder "PASTA/datasets", and name it "semtabfacts".
+Finally, put the processed dataset under the folder `PASTA/datasets`, and name it `semtabfacts`.
 
 ## Pre-training
 
@@ -39,7 +39,7 @@ python src/run_finetune.py src/scripts/train_tabfact.json
 Note that you need to modify the paths in the `.json` file to your own paths.
 
 ### Run SEM-TAB-FACTS
-Following [LKA](https://aclanthology.org/2022.coling-1.120.pdf), we also use the trained model on the TabFact to initialize the training of SEM-TAB-FACTS. Therefore, You need to train on the TabFact dataset to get the checkpoint, or you can directly download the checkpoint we provide and put it under `save_checkpoints`.
+Following [LKA](https://aclanthology.org/2022.coling-1.120.pdf), we also use the trained model on the TabFact to initialize the training of SEM-TAB-FACTS. Therefore, You need to train on the TabFact dataset to get the checkpoint, or you can directly download the [checkpoint]() we provide and put it under `/save_checkpoints`.
 Then, fine-tune on the SEM-TAB-FACTS dataset with the following command.
 ```sh
 python src/run_finetune.py src/scripts/train_semtabfacts.json
