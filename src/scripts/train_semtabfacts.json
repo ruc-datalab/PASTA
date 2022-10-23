@@ -1,0 +1,18 @@
+{
+    "model_path": "/pretrained_models/pasta",
+    "save_model_path": "/save_checkpoints",
+    "load_checkpoints": "/save_checkpoints/tabfact.pkl",
+    "save_model": true,
+    "do_train": true,
+    "do_eval": true,
+    "do_test": true,
+    "learning_rate": 5e-6,
+    "train_batch_size": 4,
+    "eval_batch_size": 3,
+    "epochs": 10,
+    "save_results_path": "/experimental_results",
+    "tokenizer_path": "/pretrained_models/pasta",
+    "cache_file": "/data_cache/semtabfacts",
+    "dataset_path": "/datasets/semtabfacts",
+    "dataset_name": "semtabfacts"
+}

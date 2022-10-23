@@ -1,0 +1,17 @@
+{
+    "model_path": "/pretrained_models/pasta",
+    "save_model_path": "/save_checkpoints",
+    "save_model": false,
+    "do_train": true,
+    "do_eval": true,
+    "do_test": true,
+    "learning_rate": 5e-6,
+    "train_batch_size": 6,
+    "eval_batch_size": 3,
+    "epochs": 30,
+    "save_results_path": "/experimental_results",
+    "tokenizer_path": "/pretrained_models/pasta",
+    "cache_file": "/data_cache/tabfact",
+    "dataset_path": "/datasets/tabfact",
+    "dataset_name": "tabfact"
+}
