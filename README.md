@@ -27,8 +27,6 @@ Then refer to this [repository](https://github.com/devanshg27/sem-tab-fact) for 
 
 Finally, put the processed dataset under the folder `PASTA/datasets`, and name it `semtabfacts`.
 
-## Pre-training
-
 ## Quick Start
 
 ### Download PASTA
@@ -49,5 +47,11 @@ Then, fine-tune on the SEM-TAB-FACTS dataset with the following command.
 python src/run_finetune.py src/scripts/train_semtabfacts.json
 ```
 Note that you need to modify the paths in the `.json` file to your own paths.
+
+## Pre-training From Scratch
+
+### Pre-training Corpus
+
+### Run Pre-training
 
 ## Reference
