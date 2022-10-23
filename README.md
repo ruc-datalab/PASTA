@@ -29,7 +29,11 @@ Finally, put the processed dataset under the folder `PASTA/datasets`, and name i
 
 ## Pre-training
 
-## Fine-tuning
+## Quick Start
+
+### Download PASTA
+
+Download the [PASTA model](https://drive.google.com/drive/folders/1sqZt8Wu7PQ3ha4260E7Gcq4WipKj6LD8?usp=sharing) and put it under folder `pretrained_models/`.
 
 ### Run TabFact
 Fine-tune on the Tabfact dataset with the following command. 
