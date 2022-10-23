@@ -8,7 +8,7 @@
     "do_test": true,
     "learning_rate": 5e-6,
     "train_batch_size": 4,
-    "eval_batch_size": 3,
+    "eval_batch_size": 4,
     "epochs": 10,
     "save_results_path": "/experimental_results",
     "tokenizer_path": "/pretrained_models/pasta",
