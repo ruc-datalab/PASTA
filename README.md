@@ -1,5 +1,27 @@
-# Introduction
+## Introduction
 This repository contains source code for the PASTA model, a pre-trained language model for table-based fact verification. The full paper is accepted to EMNLP2022 "Table-Operations Aware Fact Verification via Sentence-Table Cloze Pre-training". The code will be released in November.
+
+## Code Structure
+
+
+```sh
+|-- data_cache # save the propossed data cache for tabfact/semtabfacts
+|-- datasets # save the official datasets of tabfact/semtabfacts
+|-- experimental_results # save the evaluation results (acc|f1_micro) of tabfact/semtabfacts
+|-- pretrained_models # the model used to adapted to the downstream tasks
+|-- save_checkpoints # save the fine-tuned checkpoints of tabfact/semtabfacts
+|-- src # code for fine-tune/pre-train
+    |-- scripts # configs for fine-tune/pre-train
+        |-- train_semtabfacts.json # you need to modify the path
+        |-- train_tabfact.json # you need to modify the path
+    |-- utils
+        |-- args.py # Definition of different parameters
+        |-- dataset.py # the class to load and preprocess the dataset
+        |-- linearize.py # the class to flatten a table into a linearized form, it is adapted from https://github.com/microsoft/Table-Pretraining/blob/0b87efa253232d4aafa52c1f4725cb4f6e027877/tapex/processor/table_linearize.py
+        |-- TabFV_model.py # the class to define the table-based fact verification model
+    |-- run_finetune.py # the class to train the table-based fact verification model
+    |-- run_pretrain.py # the class to pre-train the pasta model from scratch
+```
 
 ## Requirements
 Before running the code, please make sure your Python version is above **3.8**. Then install the necessary packages by:
