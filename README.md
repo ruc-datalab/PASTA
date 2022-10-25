@@ -73,7 +73,18 @@ Note that you need to modify the paths in the `.json` file to your own paths.
 ## Pre-training From Scratch
 
 ### Pre-training Corpus
+Download the [pre-training corpus](https://drive.google.com/file/d/1ZgdPgomanqlFrka7cdfkOchE7Hxa5XzG/view?usp=sharing), which consists mostly of 128K sentence-table cloze samples. Here is an example.
 
+**Input**: Openration-aware Masked Sentence + Linearized Table
+```sh
+[MASK] has the highest attendance of all date [Header] date | visitor | score | home | leading scorer | attendance | record [Row] 1 april 2008 | knicks | 115 - 119 | bucks | quentin richardson (22) | 13579 | 20 - 54 [Row] ……
+```
+**Output**: Answer
+```sh
+8 april 2008
+```
 ### Run Pre-training
+
+Pretrain the PASTA model with the following command.
 
 ## Reference
