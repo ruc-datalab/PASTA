@@ -14,6 +14,7 @@ This repository contains source code for the PASTA model, a pre-trained language
     |-- scripts # configs for fine-tune/pre-train
         |-- train_semtabfacts.json # you need to modify the path
         |-- train_tabfact.json # you need to modify the path
+        |-- pretrain.json # you need to modify the path
     |-- utils
         |-- args.py # Definition of different parameters
         |-- dataset.py # the class to load and preprocess the dataset
