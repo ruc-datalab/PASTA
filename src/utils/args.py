@@ -45,6 +45,10 @@ class ModelArguments:
         default=None,
         metadata={"help": ""}
     )
+    load_checkpoints: Optional[str] = field(
+        default=None,
+        metadata={"help": "Path to load the fine-tuned checkpoint."},
+    )
     save_results_path: str = field(
         default=None,
         metadata={"help": " Path to save the experimental results: acc/f1micro."}
