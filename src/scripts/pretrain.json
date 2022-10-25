@@ -1,0 +1,16 @@
+{
+    "model_path": "microsoft/deberta-v3-large",
+    "save_model_path": "/save_checkpoints",
+    "save_model": true,
+    "do_train": true,
+    "do_eval": true,
+    "learning_rate": 5e-6,
+    "train_batch_size": 16,
+    "eval_batch_size": 16,
+    "save_results_path": "/experimental_results",
+    "epochs": 30,
+    "tokenizer_path": "microsoft/deberta-v3-large",
+    "cache_file": "/data_cache/pasta",
+    "dataset_path": "/datasets/pasta",
+    "dataset_name": "pasta"
+}
