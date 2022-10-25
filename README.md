@@ -83,8 +83,14 @@ Download the [pre-training corpus](https://drive.google.com/file/d/1ZgdPgomanqlF
 ```sh
 8 april 2008
 ```
+Put the unzip dataset under the folder `PASTA/datasets`, and name it `pasta`.
+
 ### Run Pre-training
 
 Pretrain the PASTA model with the following command.
+```sh
+python src/run_pretrain.py src/scripts/pretrain.json
+```
+Note that you need to modify the paths in the `.json` file to your own paths.
 
 ## Reference
