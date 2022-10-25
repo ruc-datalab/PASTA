@@ -62,12 +62,26 @@ class DataManager:
             self.train_dataset = MyDataSet(train_smps)
             self.dev_dataset = MyDataSet(valid_smps)
             self.test_dataset = MyDataSet(test_smps)
+            
+        elif self.dataset == 'pasta':
+            if os.path.exists(os.path.join(self.cache_file, 'train')):
+                print(f"loading dataset from {self.cache_file}")
+                train_smps = torch.load(os.path.join(self.cache_file, 'train'))
+                valid_smps = torch.load(os.path.join(self.cache_file, 'val'))
+            else:
+                print(f"write dataset to {self.cache_file}")
+                self.tables = self.load_the_tables()
+                self.all_data = self.load_all_the_data_pasta()
+                train_smps = self.get_data_pasta('train')
+                valid_smps = self.get_data_pasta('val')
+            self.train_dataset = MyDataSet(train_smps)
+            self.dev_dataset = MyDataSet(valid_smps)
         else:
             raise NotImplementedError()
 
         
     def load_the_tables(self):
-        if self.dataset == 'tabfact':
+        if self.dataset == 'tabfact' or self.dataset == 'pasta':
             table_path = os.path.join(self.dataset_path, 'data/all_csv')
         elif self.dataset == 'semtabfacts':
             table_path = os.path.join(self.dataset_path, 'csv')
@@ -81,7 +95,7 @@ class DataManager:
 
     def load_a_table(self, fnm):
         table_contents = []
-        if self.dataset == 'tabfact':
+        if self.dataset == 'tabfact' or self.dataset == 'pasta':
             table_df = pd.read_csv(fnm, sep='#').astype(str)
         elif self.dataset == 'semtabfacts':
             table_df = pd.read_csv(fnm).astype(str)
@@ -93,7 +107,49 @@ class DataManager:
     
     def takeSecond(self, elem):
         return elem[1]
-        
+    
+    def pasta_mask_tokens(self, sentence, cloze, linearized_table):
+        sentence_toks = self.tokenizer.tokenize(sentence)
+        cloze_toks = self.tokenizer.tokenize(cloze)
+        cloze_extend = cloze.replace("[MASK]", "[MASK]"*(len(sentence_toks)-len(cloze_toks)+1))
+        target_str = sentence + " " + linearized_table
+        input_str = cloze_extend + " " + linearized_table
+        label = self.tokenizer(target_str, padding="max_length", truncation=True, return_tensors="pt")['input_ids'][0]
+        input = self.tokenizer(input_str, padding="max_length", truncation=True, return_tensors="pt")
+        mask_ids = input['input_ids'][0]
+        no_mask_ids = torch.nonzero(mask_ids != 128000)
+        ignore_list = [int(i) for i in no_mask_ids]
+        label[ignore_list] = -100
+        return input["input_ids"][0], input["token_type_ids"][0], input["attention_mask"][0], label
+    
+    def get_data_pasta(self, which):
+        if which == 'train':
+            fnm = os.path.join(self.dataset_path, 'data/train_id.json')
+            cache_fnm = os.path.join(self.cache_file,'train')
+        elif which == 'val':
+            fnm = os.path.join(self.dataset_path, 'data/val_id.json')
+            cache_fnm = os.path.join(self.cache_file,'val')
+        else:
+            assert 1 == 2, "which should be in train/val"
+        table_ids = eval(open(fnm).read())
+        smps = []
+        for tab_id in tqdm(table_ids):
+            if tab_id not in self.all_data.keys():
+                continue
+            tab_data = self.all_data[tab_id]
+            sentences, clozes = tab_data
+            table = self.tables[tab_id]
+            table_dict = {}
+            table_dict["header"] = table[0]
+            table_dict["rows"] = table[1:]
+            linearized_table = self.table_processor.process_table(table_dict)
+            for sentence, cloze in zip(sentences, clozes):
+                input_ids, token_type_ids, attention_mask, label = self.pasta_mask_tokens(sentence, cloze, linearized_table)
+                smps.append([input_ids, token_type_ids, attention_mask, label])
+        print(f'{which} sample num={len(smps)}')
+        torch.save(smps, cache_fnm)
+        return smps
+    
     def get_data_tabfact(self, which):
         if which == 'train':
             fnm = os.path.join(self.dataset_path, 'data/train_id.json')
@@ -188,7 +244,15 @@ class DataManager:
             infos = eval(open(fnm).read())
             all_data.update(infos)
         return all_data
-
+    
+    def load_all_the_data_pasta(self):
+        all_data = {}
+        for fnm in tqdm(os.listdir(os.path.join(self.dataset_path, "raw_data/"))):
+            infos = eval(open(os.path.join(self.dataset_path, "raw_data/", fnm)).read())
+            all_data.update(infos)
+        print(len(all_data))
+        return all_data
+    
     def iter_batches(self, which="train", samples=None, batch_size=None):
         if which == 'train':
             return DataLoader(shuffle=True, dataset=self.train_dataset, batch_size=batch_size)
