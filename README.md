@@ -1,5 +1,6 @@
 ## Introduction
-This repository contains source code for the PASTA model, a pre-trained language model for table-based fact verification. The full paper is accepted to EMNLP2022 "Table-Operations Aware Fact Verification via Sentence-Table Cloze Pre-training". The code will be released in November.
+This repository contains source code for the EMNLP'2022 paper "Table-Operations Aware Fact Verification via Sentence-Table Cloze Pre-training". In this paper we introduce PASTA, a novel state-of-the-art framework for table-based fact verification via pre-training with synthesized sentence–table cloze questions. In particular, we design six types of common sentence–table cloze tasks, including Filter, Aggregation, Superlative, Comparative, Ordinal, and Unique, based on which we synthesize a large corpus consisting of 1.2 million sentence–table pairs from WikiTables.
+<img src="overview.png" width="820" />
 
 ## Code Structure
 
