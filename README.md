@@ -18,7 +18,8 @@ This repository contains source code for the PASTA model, a pre-trained language
     |-- utils
         |-- args.py # Definition of different parameters
         |-- dataset.py # the class to load and preprocess the dataset
-        |-- linearize.py # the class to flatten a table into a linearized form, it is adapted from https://github.com/microsoft/Table-Pretraining/blob/0b87efa253232d4aafa52c1f4725cb4f6e027877/tapex/processor/table_linearize.py
+        |-- linearize.py # the class to flatten a table into a linearized form, it is adapted from https://github.com/microsoft/Table-Pretraining/blob/0b87efa253232d4aafa52c1f4725cb4f6e027877/tapex/processor/table_linearize.py.
+        |-- entitylink.py # the class to identify entity links between the sentence and the table, it is adapted from https://github.com/wenhuchen/Table-Fact-Checking/blob/5ea13b8f6faf11557eec728c5f132534e7a22bf7/code/preprocess_data.py.
         |-- pasta_mlm_model.py # the class to define the operation-aware pretraing model
         |-- TabFV_model.py # the class to define the table-based fact verification model
     |-- run_finetune.py # the class to train the table-based fact verification model
