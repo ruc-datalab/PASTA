@@ -5,6 +5,7 @@ from nltk.corpus import stopwords
 from .args import ModelArguments, DataArguments
 from .linearize import IndexedRowTableLinearize
 from transformers import DebertaV2Tokenizer
+from .entitylink import sub_func
 from tqdm import tqdm
 import pandas as pd
 import torch
@@ -177,23 +178,46 @@ class DataManager:
             table = self.tables[tab_id]
             table_head = table[0]
             table_body = table[1:]
+            table_len = len(self.tokenizer.tokenize(self.table_processor.process_table({"header": table_head, "rows": table_body})))
+            if table_len > 1000:
+                need_trunc = True
+            else:
+                need_trunc = False
             for q,l in zip(qs,labels):
                 table_dict = {}
+                # col-select
+                col_list = list(range(len(table_head)))               
+                if need_trunc:
+                    entity_link = sub_func(tab_id, '', q)
+                    if entity_link == None:
+                        entity_link = q
+                    entity_index = [i for (i,j) in enumerate(entity_link) if j=='#']
+                    entity_col_list = []
+                    for i in range(0,len(entity_index)-1,2):
+                        s = entity_link[entity_index[i] : entity_index[i+1]]
+                        s = re.split("[;#]",s)[2]
+                        s = s.split(",")
+                        entity_col_list.append(int(s[1]))
+                    entity_col_list = list(set(entity_col_list))
+                    if len(entity_col_list) != len(col_list):
+                        col_list.remove(random.choice([i for i in col_list if i not in entity_col_list]))
+                # row-rank
                 row_list = []
                 q_tok = WordPunctTokenizer().tokenize(q)
                 q_tok = [i for i in q_tok if i not in self.stop]
-                # row-wise-ranking
                 row_scores = []
+                table_body_after_select = []
                 for idx, row in enumerate(table_body):
-                    row_str = ' '.join(row)
+                    table_body_after_select.append([row[i] for i in col_list])
+                    row_str = ' '.join([row[i] for i in col_list])
                     row_tok = WordPunctTokenizer().tokenize(row_str)
                     score = len(list(set(row_tok)&set(q_tok)))
                     row_scores.append((idx, score))
                 row_scores.sort(key=self.takeSecond,reverse=True)
                 row_list = [item[0] for item in row_scores]
 
-                table_body_after_ranking = [table_body[i] for i in row_list]
-                table_dict["header"] = table_head
+                table_body_after_ranking = [table_body_after_select[i] for i in row_list]
+                table_dict["header"] = [table_head[i] for i in col_list]
                 table_dict["rows"] = table_body_after_ranking
                 table_linearized = self.table_processor.process_table(table_dict)
                 table_claim = q + " " + table_linearized
