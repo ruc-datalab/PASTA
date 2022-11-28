@@ -82,7 +82,8 @@ Download the [pre-training corpus](https://drive.google.com/file/d/1ZgdPgomanqlF
 
 **Input**: Openration-aware Masked Sentence + Linearized Table
 ```sh
-[MASK] has the highest attendance of all date [Header] date | visitor | score | home | leading scorer | attendance | record [Row] 1 april 2008 | knicks | 115 - 119 | bucks | quentin richardson (22) | 13579 | 20 - 54 [Row] ……
+# Mask all of the the tokens corresponding to a span at once.
+[MASK] [MASK] [MASK] has the highest attendance of all date [Header] date | visitor | score | home | leading scorer | attendance | record [Row] 1 april 2008 | knicks | 115 - 119 | bucks | quentin richardson (22) | 13579 | 20 - 54 [Row] ……
 ```
 **Output**: Answer
 ```sh
