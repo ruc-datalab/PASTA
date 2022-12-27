@@ -102,3 +102,25 @@ python src/run_pretrain.py src/scripts/pretrain.json
 Note that you need to modify the paths in the `.json` file to your own paths.
 
 ## Reference
+```sh
+@article{DBLP:journals/corr/abs-2211-02816,
+  author    = {Zihui Gu and
+               Ju Fan and
+               Nan Tang and
+               Preslav Nakov and
+               Xiaoman Zhao and
+               Xiaoyong Du},
+  title     = {{PASTA:} Table-Operations Aware Fact Verification via Sentence-Table
+               Cloze Pre-training},
+  journal   = {CoRR},
+  volume    = {abs/2211.02816},
+  year      = {2022},
+  url       = {https://doi.org/10.48550/arXiv.2211.02816},
+  doi       = {10.48550/arXiv.2211.02816},
+  eprinttype = {arXiv},
+  eprint    = {2211.02816},
+  timestamp = {Wed, 09 Nov 2022 17:33:26 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2211-02816.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+```
